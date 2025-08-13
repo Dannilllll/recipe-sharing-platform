@@ -11,10 +11,10 @@ interface AuthContextType {
   profile: Profile | null
   session: Session | null
   loading: boolean
-  signIn: (email: string, password: string) => Promise<{ error: any }>
-  signUp: (email: string, password: string, userData?: { username?: string; full_name?: string }) => Promise<{ error: any }>
+  signIn: (email: string, password: string) => Promise<{ error: { message?: string } | null }>
+  signUp: (email: string, password: string, userData?: { username?: string; full_name?: string }) => Promise<{ error: { message?: string } | null }>
   signOut: () => Promise<void>
-  updateProfile: (updates: Partial<Profile>) => Promise<{ error: any }>
+  updateProfile: (updates: Partial<Profile>) => Promise<{ error: { message?: string } | null }>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -99,10 +99,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         password,
       })
       console.log('Auth context: Sign in result:', { data, error })
-      return { error }
+      return { error: error ? { message: error.message } : null }
     } catch (err) {
       console.error('Auth context: Sign in error:', err)
-      return { error: err }
+      const message = err instanceof Error ? err.message : 'Unknown error'
+      return { error: { message } }
     }
   }
 
@@ -114,7 +115,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         data: userData,
       },
     })
-    return { error }
+    return { error: error ? { message: error.message } : null }
   }
 
   const signOut = async () => {
@@ -122,7 +123,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const updateProfile = async (updates: Partial<Profile>) => {
-    if (!user) return { error: 'No user logged in' }
+    if (!user) return { error: { message: 'No user logged in' } }
 
     console.log('Auth context: Updating profile for user:', user.id, 'with updates:', updates)
 
@@ -140,7 +141,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.log('Auth context: Profile state updated with:', data)
     }
 
-    return { error }
+    return { error: error ? { message: error.message } : null }
   }
 
   const value = {

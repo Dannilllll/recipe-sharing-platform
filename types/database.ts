@@ -279,6 +279,7 @@ export type ProfileUpdate = Database['public']['Tables']['profiles']['Update']
 export type Recipe = Database['public']['Tables']['recipes']['Row']
 export type RecipeInsert = Database['public']['Tables']['recipes']['Insert']
 export type RecipeUpdate = Database['public']['Tables']['recipes']['Update']
+export type RecipeDifficulty = Database['public']['Enums']['recipe_difficulty']
 
 export type CommentWithUser = Database['public']['Views']['comments_with_users']['Row']
 export type RecipeStats = Database['public']['Views']['recipe_stats']['Row']

@@ -1,6 +1,5 @@
-import { notFound, redirect } from 'next/navigation'
-import { getRecipe, isRecipeCreator } from '@/lib/recipes'
-import { getServerSession } from 'next-auth'
+import { notFound } from 'next/navigation'
+import { getRecipe } from '@/lib/recipes'
 import RecipeForm from '@/app/components/recipes/recipe-form'
 
 interface EditRecipePageProps {

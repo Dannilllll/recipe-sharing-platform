@@ -1,10 +1,16 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { useAuth } from '@/lib/auth-context'
 import { useRouter } from 'next/navigation'
 
-export default function SignInPage() {
+interface SignInProps {
+  onSwitchToSignUp?: () => void
+  onClose?: () => void
+}
+
+export default function SignInPage({ onSwitchToSignUp, onClose }: SignInProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -98,23 +104,33 @@ export default function SignInPage() {
 
         <div className="mt-8 text-center">
           <p className="text-gray-600">
-            Don't have an account?{' '}
-            <a
-              href="/signup"
-              className="text-orange-600 hover:text-orange-700 font-medium"
-            >
-              Sign up
-            </a>
+            Don&apos;t have an account?{' '}
+            {onSwitchToSignUp ? (
+              <button
+                type="button"
+                onClick={onSwitchToSignUp}
+                className="text-orange-600 hover:text-orange-700 font-medium"
+              >
+                Sign up
+              </button>
+            ) : (
+              <Link
+                href="/signup"
+                className="text-orange-600 hover:text-orange-700 font-medium"
+              >
+                Sign up
+              </Link>
+            )}
           </p>
         </div>
 
         <div className="mt-6 text-center">
-          <a
+          <Link
             href="/"
             className="text-gray-500 hover:text-gray-700 text-sm"
           >
             ← Back to Home
-          </a>
+          </Link>
         </div>
       </div>
     </div>

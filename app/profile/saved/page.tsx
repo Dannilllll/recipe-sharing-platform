@@ -43,7 +43,7 @@ export default function SavedRecipesPage() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Saved Recipes</h1>
-            <p className="text-gray-600 mt-2">Recipes you've liked</p>
+            <p className="text-gray-600 mt-2">Recipes you&apos;ve liked</p>
           </div>
           <Link
             href="/recipes"

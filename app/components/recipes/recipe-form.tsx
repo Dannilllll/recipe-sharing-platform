@@ -38,6 +38,16 @@ export default function RecipeForm({ recipe, mode, onSuccess }: RecipeFormProps)
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
+  const [formData, setFormData] = useState<CreateRecipeData>({
+    title: recipe?.title || '',
+    description: recipe?.description || '',
+    ingredients: recipe?.ingredients || '',
+    cooking_time: recipe?.cooking_time || undefined,
+    difficulty: recipe?.difficulty || 'medium',
+    category: recipe?.category || '',
+    instructions: recipe?.instructions || ''
+  })
+
   // Redirect to sign-in if not authenticated
   if (!loading && !user && mode === 'create') {
     router.push('/signin')
@@ -49,16 +59,6 @@ export default function RecipeForm({ recipe, mode, onSuccess }: RecipeFormProps)
     router.push('/signin')
     return null
   }
-
-  const [formData, setFormData] = useState<CreateRecipeData>({
-    title: recipe?.title || '',
-    description: recipe?.description || '',
-    ingredients: recipe?.ingredients || '',
-    cooking_time: recipe?.cooking_time || undefined,
-    difficulty: recipe?.difficulty || 'medium',
-    category: recipe?.category || '',
-    instructions: recipe?.instructions || ''
-  })
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {}

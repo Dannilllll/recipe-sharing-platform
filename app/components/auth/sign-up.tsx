@@ -1,11 +1,17 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { useAuth } from '@/lib/auth-context'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 
-export default function SignUpPage() {
+interface SignUpProps {
+  onSwitchToSignIn?: () => void
+  onClose?: () => void
+}
+
+export default function SignUpPage({ onSwitchToSignIn, onClose }: SignUpProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -94,7 +100,7 @@ export default function SignUpPage() {
           router.push('/dashboard')
         }
       }
-    } catch (err) {
+    } catch (_err) {
       setError('An unexpected error occurred')
     } finally {
       setLoading(false)
@@ -221,22 +227,32 @@ export default function SignUpPage() {
         <div className="mt-8 text-center">
           <p className="text-gray-600">
             Already have an account?{' '}
-            <a
-              href="/signin"
-              className="text-orange-600 hover:text-orange-700 font-medium"
-            >
-              Sign in
-            </a>
+            {onSwitchToSignIn ? (
+              <button
+                type="button"
+                onClick={onSwitchToSignIn}
+                className="text-orange-600 hover:text-orange-700 font-medium"
+              >
+                Sign in
+              </button>
+            ) : (
+              <Link
+                href="/signin"
+                className="text-orange-600 hover:text-orange-700 font-medium"
+              >
+                Sign in
+              </Link>
+            )}
           </p>
         </div>
 
         <div className="mt-6 text-center">
-          <a
+          <Link
             href="/"
             className="text-gray-500 hover:text-gray-700 text-sm"
           >
             ← Back to Home
-          </a>
+          </Link>
         </div>
       </div>
     </div>

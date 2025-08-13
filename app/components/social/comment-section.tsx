@@ -11,7 +11,7 @@ interface CommentSectionProps {
 }
 
 export default function CommentSection({ recipeId }: CommentSectionProps) {
-  const { user } = useAuth()
+  const { user, profile } = useAuth()
   const [comments, setComments] = useState<CommentWithUser[]>([])
   const [newComment, setNewComment] = useState('')
   const [editingComment, setEditingComment] = useState<string | null>(null)
@@ -22,6 +22,7 @@ export default function CommentSection({ recipeId }: CommentSectionProps) {
   // Load comments on mount
   useEffect(() => {
     loadComments()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recipeId])
 
   const loadComments = async () => {
@@ -55,8 +56,8 @@ export default function CommentSection({ recipeId }: CommentSectionProps) {
       // Add the new comment to the list
       const newCommentWithUser: CommentWithUser = {
         ...comment,
-        username: user.username || user.email?.split('@')[0] || 'Anonymous',
-        full_name: user.full_name
+        username: profile?.username || user.email?.split('@')[0] || 'Anonymous',
+        full_name: profile?.full_name || null
       }
 
       setComments(prev => [...prev, newCommentWithUser])

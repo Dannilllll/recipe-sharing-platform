@@ -36,7 +36,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
           onClose()
         }, 1500)
       }
-    } catch (err) {
+    } catch (_err) {
       setError('An unexpected error occurred')
     } finally {
       setLoading(false)

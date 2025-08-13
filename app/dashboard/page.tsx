@@ -9,7 +9,7 @@ import { getRecipesWithStats } from '@/lib/social'
 import type { Recipe, RecipeStats } from '@/types/database'
 
 export default function DashboardPage() {
-  const { user, profile, loading, signOut } = useAuth()
+  const { user, loading } = useAuth()
   const router = useRouter()
   const [recipes, setRecipes] = useState<Recipe[]>([])
   const [recipeStats, setRecipeStats] = useState<RecipeStats[]>([])
@@ -27,6 +27,7 @@ export default function DashboardPage() {
     if (user) {
       fetchRecipes()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   const fetchRecipes = async () => {
@@ -162,10 +163,7 @@ export default function DashboardPage() {
                   )}
                 </div>
                 
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">
-                    By {recipe.profiles?.username || recipe.profiles?.full_name || 'Anonymous'}
-                  </span>
+                <div className="flex justify-end items-center">
                   <span className="text-sm text-gray-500">
                     {new Date(recipe.created_at).toLocaleDateString()}
                   </span>

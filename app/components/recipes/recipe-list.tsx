@@ -73,6 +73,8 @@ export default function RecipeList({ initialRecipes = [], initialCount = 0, show
     if (initialRecipes.length === 0) {
       loadRecipes(1)
     }
+    // initialRecipes is a stable prop; suppress exhaustive-deps for length check
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handlePageChange = (page: number) => {

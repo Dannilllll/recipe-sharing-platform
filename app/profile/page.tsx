@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '@/lib/auth-context'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { supabase } from '@/lib/supabase'
+// import { supabase } from '@/lib/supabase'
 
 export default function ProfilePage() {
   const { user, profile, loading, updateProfile: updateAuthProfile } = useAuth()
@@ -285,7 +285,7 @@ export default function ProfilePage() {
                 </div>
                 <div>
                   <h3 className="font-medium text-gray-900">Saved Recipes</h3>
-                  <p className="text-sm text-gray-600">View recipes you've liked</p>
+              <p className="text-sm text-gray-600">View recipes you&apos;ve liked</p>
                 </div>
               </Link>
             </div>

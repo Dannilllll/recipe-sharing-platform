@@ -209,8 +209,8 @@ export default function RecipeSearch({ onSearch, onClear, isLoading = false }: R
         {hasActiveFilters && (
           <div className="flex flex-wrap gap-2 pt-2">
             {query && (
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                Search: "{query}"
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                Search: &quot;{query}&quot;
                 <button
                   type="button"
                   onClick={() => setQuery('')}
